@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Forms | Code Atlas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <div class="site-bg"></div>
+
+    <nav class="guide-nav container d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <a class="brand-mark" href="index.html">PHP Guide</a>
+        <div class="inline-nav">
+            <a class="btn-outline-guide" href="php-basics.html">Previous</a>
+            <a class="btn-outline-guide" href="index.html">PHP Topics</a>
+            <a class="btn-sunrise" href="php-database.html">Next Lesson</a>
+        </div>
+    </nav>
+
+    <main class="guide-shell container">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <section class="page-intro reveal">
+                    <p class="eyebrow">Lesson 2</p>
+                    <h1>Forms and User Input</h1>
+                    <p class="lead-copy">Forms are one of the most common PHP use cases. PHP reads submitted values through superglobals such as <strong>$_GET</strong> and <strong>$_POST</strong>.</p>
+                </section>
+
+                <section class="content-card reveal">
+                    <h2>GET vs POST</h2>
+                    <table class="table-guide">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Best Use</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>GET</td>
+                                <td>Search, filters, sharable URLs</td>
+                                <td>Values appear in the URL.</td>
+                            </tr>
+                            <tr>
+                                <td>POST</td>
+                                <td>Logins, registrations, updates</td>
+                                <td>Values are sent in the request body.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="content-card reveal">
+                    <h2>Reading POST Data</h2>
+                    <div class="code-example mt-3">
+                        <div class="code-card">
+                            <pre><code>&lt;?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name = trim($_POST["name"] ?? "");
+    $email = trim($_POST["email"] ?? "");
+
+    if ($name === "" || $email === "") {
+        echo "Please complete all fields.";
+    } else {
+        echo "Thanks, " . htmlspecialchars($name);
+    }
+}
+?&gt;</code></pre>
+                        </div>
+                        <div class="output-card">
+                            <h4>Output</h4>
+                            <div class="output-render">
+                                <p class="mb-1">If fields are empty:</p>
+                                <p class="mb-2">Please complete all fields.</p>
+                                <p class="mb-1">If the form is valid:</p>
+                                <p class="mb-0">Thanks, Amina</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-card reveal">
+                    <h2>Validation Pattern</h2>
+                    <p>Validation should happen on the server even if JavaScript also checks fields in the browser.</p>
+                    <div class="code-example mt-3">
+                        <div class="code-card">
+                            <pre><code>&lt;?php
+$errors = [];
+
+if ($name === "") {
+    $errors[] = "Name is required.";
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errors[] = "Email address is not valid.";
+}
+
+if (empty($errors)) {
+    echo "Form is valid.";
+}
+?&gt;</code></pre>
+                        </div>
+                        <div class="output-card">
+                            <h4>Output</h4>
+                            <pre>Form is valid.</pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-card reveal">
+                    <h2>Sticky Form Example</h2>
+                    <p>A sticky form keeps the user's typed values after validation fails.</p>
+                    <div class="code-example mt-3">
+                        <div class="code-card">
+                            <pre><code>&lt;form method="post" action=""&gt;
+    &lt;input type="text" name="name" value="&lt;?= htmlspecialchars($name ?? "") ?&gt;"&gt;
+    &lt;input type="email" name="email" value="&lt;?= htmlspecialchars($email ?? "") ?&gt;"&gt;
+    &lt;button type="submit"&gt;Send&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                        </div>
+                        <div class="output-card">
+                            <h4>Output</h4>
+                            <div class="output-form-preview">
+                                <div class="output-input">Amina</div>
+                                <div class="output-input">amina@example.com</div>
+                                <div class="output-button">Send</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-card reveal">
+                    <h2>File Upload Basics</h2>
+                    <p>Use <strong>enctype="multipart/form-data"</strong> and inspect <strong>$_FILES</strong>. Always validate file type and size.</p>
+                    <div class="code-card mt-3">
+                        <pre><code>&lt;?php
+if (isset($_FILES["resume"]) && $_FILES["resume"]["error"] === UPLOAD_ERR_OK) {
+    $tmpPath = $_FILES["resume"]["tmp_name"];
+    $originalName = basename($_FILES["resume"]["name"]);
+    move_uploaded_file($tmpPath, __DIR__ . "/uploads/" . $originalName);
+}
+?&gt;</code></pre>
+                    </div>
+                </section>
+
+                <section class="callout-box reveal mt-4">
+                    <h3>Best Practice</h3>
+                    <p class="mb-0">Never trust raw user input. Validate structure, sanitize output, and use prepared statements before data reaches a database query.</p>
+                </section>
+            </div>
+
+            <div class="col-lg-4">
+                <aside class="sidebar-card reveal">
+                    <h3>Form Checklist</h3>
+                    <ul class="quick-facts">
+                        <li>Check the request method before reading form values.</li>
+                        <li>Use null coalescing like <strong>$_POST["field"] ?? ""</strong>.</li>
+                        <li>Escape data when showing it back in HTML.</li>
+                        <li>Validate on the server even if JavaScript exists.</li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
