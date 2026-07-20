@@ -16,7 +16,7 @@
     <nav class="guide-nav container d-flex flex-wrap justify-content-between align-items-center gap-3">
         <a class="brand-mark" href="index.html">PHP Guide</a>
         <div class="inline-nav">
-            <a class="btn-outline-guide" href="php-forms.html">Previous</a>
+            <a class="btn-outline-guide" href="php-state.html">Previous</a>
             <a class="btn-outline-guide" href="index.html">PHP Topics</a>
             <a class="btn-sunrise" href="php-oop.html">Next Lesson</a>
         </div>
@@ -26,13 +26,19 @@
         <div class="row g-4">
             <div class="col-lg-8">
                 <section class="page-intro reveal">
-                    <p class="eyebrow">Lesson 3</p>
+                    <p class="eyebrow">Lesson 6</p>
                     <h1>Databases With MySQL and PDO</h1>
-                    <p class="lead-copy">PDO is the standard, flexible way to connect PHP to MySQL. It supports prepared statements, exceptions, and multiple database drivers.</p>
+                    <p class="lead-copy">This is where your application stops forgetting everything between requests. Databases let you persist users, tasks, orders, messages, and any other important records.</p>
+                </section>
+
+                <section class="content-card reveal">
+                    <h2>Why PDO</h2>
+                    <p>PDO gives you a consistent way to connect to databases, prepare statements, bind values, and handle errors. It is the standard baseline for modern PHP database work.</p>
                 </section>
 
                 <section class="content-card reveal">
                     <h2>Creating a Connection</h2>
+                    <p>Keep database credentials centralized so the rest of the app can reuse the same connection setup.</p>
                     <div class="code-card mt-3">
                         <pre><code>&lt;?php
 $dsn = "mysql:host=localhost;dbname=school_app;charset=utf8mb4";
@@ -52,8 +58,8 @@ try {
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Prepared Statements</h2>
-                    <p>Prepared statements separate the SQL structure from user input, which prevents SQL injection when used correctly.</p>
+                    <h2>Reading Data Safely</h2>
+                    <p>Prepared statements protect your query structure by keeping user data separate from the SQL command.</p>
                     <div class="code-card mt-3">
                         <pre><code>&lt;?php
 $stmt = $pdo-&gt;prepare("SELECT * FROM users WHERE email = :email");
@@ -61,10 +67,11 @@ $stmt-&gt;execute(["email" =&gt; $email]);
 $user = $stmt-&gt;fetch();
 ?&gt;</code></pre>
                     </div>
+                    <p class="mt-3 mb-0">The pattern is simple: prepare, execute, fetch.</p>
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Insert Data Safely</h2>
+                    <h2>Inserting Records</h2>
                     <div class="code-card mt-3">
                         <pre><code>&lt;?php
 $sql = "INSERT INTO users (name, email, created_at) VALUES (:name, :email, NOW())";
@@ -75,6 +82,7 @@ $stmt-&gt;execute([
 ]);
 ?&gt;</code></pre>
                     </div>
+                    <p class="mt-3 mb-0">This is your create step in CRUD: create, read, update, delete.</p>
                 </section>
 
                 <section class="content-card reveal">
@@ -102,7 +110,8 @@ foreach ($tasks as $task) {
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Suggested File Structure</h2>
+                    <h2>Designing a Small Data Layer</h2>
+                    <p>Do not scatter raw SQL throughout every page. Even in small apps, create a simple repository or data access layer so database logic is easier to update later.</p>
                     <div class="code-card mt-3">
                         <pre><code>project/
 |-- config/
@@ -114,7 +123,6 @@ foreach ($tasks as $task) {
 |-- templates/
 |   |-- header.php</code></pre>
                     </div>
-                    <p class="mt-3 mb-0">Keeping connection logic in one place makes changes easier and avoids duplicated credentials.</p>
                 </section>
             </div>
 
@@ -122,10 +130,10 @@ foreach ($tasks as $task) {
                 <aside class="sidebar-card reveal">
                     <h3>PDO Rules</h3>
                     <ul class="quick-facts">
-                        <li>Enable exception mode so failures are visible.</li>
-                        <li>Use prepared statements for any query involving user data.</li>
-                        <li>Store credentials outside public web folders.</li>
-                        <li>Escape output when rendering database content into HTML.</li>
+                        <li>Always enable exception mode.</li>
+                        <li>Use prepared statements for any user-provided value.</li>
+                        <li>Keep credentials out of public directories.</li>
+                        <li>Escape database data when rendering it into HTML.</li>
                     </ul>
                 </aside>
             </div>

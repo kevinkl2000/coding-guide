@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP Advanced Topics | Code Atlas</title>
+    <title>PHP APIs, Auth, and Security | Code Atlas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -26,32 +26,14 @@
         <div class="row g-4">
             <div class="col-lg-8">
                 <section class="page-intro reveal">
-                    <p class="eyebrow">Lesson 5</p>
-                    <h1>Sessions, APIs, and Security</h1>
-                    <p class="lead-copy">These topics are where many real PHP applications become useful or risky. Good defaults matter.</p>
-                </section>
-
-                <section class="content-card reveal">
-                    <h2>Sessions</h2>
-                    <p>Sessions let you keep data between requests, which is useful for logins, carts, and multi-step workflows.</p>
-                    <div class="code-example mt-3">
-                        <div class="code-card">
-                            <pre><code>&lt;?php
-session_start();
-$_SESSION["user_id"] = 42;
-
-echo $_SESSION["user_id"];
-?&gt;</code></pre>
-                        </div>
-                        <div class="output-card">
-                            <h4>Output</h4>
-                            <pre>42</pre>
-                        </div>
-                    </div>
+                    <p class="eyebrow">Lesson 8</p>
+                    <h1>APIs, Authentication, and Security</h1>
+                    <p class="lead-copy">This final lesson introduces the habits that separate a demo from a real application: returning machine-readable responses, protecting user accounts, handling sessions correctly, and reducing attack surface.</p>
                 </section>
 
                 <section class="content-card reveal">
                     <h2>Returning JSON for APIs</h2>
+                    <p>Not every PHP response should be HTML. API endpoints often return JSON so JavaScript apps, mobile apps, or external systems can consume data.</p>
                     <div class="code-example mt-3">
                         <div class="code-card">
                             <pre><code>&lt;?php
@@ -73,7 +55,7 @@ echo json_encode([
 
                 <section class="content-card reveal">
                     <h2>Password Hashing</h2>
-                    <p>Never store plain text passwords. Use <strong>password_hash()</strong> and <strong>password_verify()</strong>.</p>
+                    <p>Passwords should never be encrypted with custom code or stored directly. Use the built-in password helpers so PHP chooses a safe hashing strategy for you.</p>
                     <div class="code-example mt-3">
                         <div class="code-card">
                             <pre><code>&lt;?php
@@ -92,18 +74,19 @@ if (password_verify($enteredPassword, $hash)) {
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Common Security Rules</h2>
-                    <ul>
-                        <li>Escape output to prevent XSS.</li>
-                        <li>Use prepared statements to prevent SQL injection.</li>
-                        <li>Regenerate session IDs after login.</li>
-                        <li>Validate uploaded files before storing them.</li>
-                        <li>Use CSRF protection for sensitive form actions.</li>
-                    </ul>
+                    <h2>Authentication Flow</h2>
+                    <ol>
+                        <li>User submits email and password.</li>
+                        <li>Server finds the matching account by email.</li>
+                        <li>Server verifies the submitted password against the stored hash.</li>
+                        <li>Server stores the user ID in the session.</li>
+                        <li>Private pages check that session before rendering.</li>
+                    </ol>
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Simple CSRF Token Pattern</h2>
+                    <h2>CSRF Protection</h2>
+                    <p>For sensitive form actions, include a token so the server can confirm the request came from your own application flow.</p>
                     <div class="code-example mt-3">
                         <div class="code-card">
                             <pre><code>&lt;?php
@@ -123,20 +106,31 @@ if (empty($_SESSION["csrf_token"])) {
                     </div>
                 </section>
 
+                <section class="content-card reveal">
+                    <h2>Security Checklist</h2>
+                    <ul>
+                        <li>Escape HTML output to reduce XSS risk.</li>
+                        <li>Use prepared statements to reduce SQL injection risk.</li>
+                        <li>Regenerate session IDs after login.</li>
+                        <li>Validate uploaded files before saving them.</li>
+                        <li>Return proper HTTP status codes for API failures.</li>
+                    </ul>
+                </section>
+
                 <section class="callout-box reveal mt-4">
                     <h3>Production Mindset</h3>
-                    <p class="mb-0">The difference between a demo app and a production app is usually validation, error handling, logging, and security discipline. Build those habits early.</p>
+                    <p class="mb-0">Experienced PHP development is less about memorizing syntax and more about managing risk, reducing duplication, and making code predictable under real traffic and messy user input.</p>
                 </section>
             </div>
 
             <div class="col-lg-4">
                 <aside class="sidebar-card reveal">
-                    <h3>Final Checklist</h3>
+                    <h3>End-State Skills</h3>
                     <ul class="quick-facts">
-                        <li>Start sessions before output.</li>
-                        <li>Return JSON with the correct content type.</li>
-                        <li>Hash passwords instead of encrypting them yourself.</li>
-                        <li>Assume every input can be abused until validated.</li>
+                        <li>You can read and return JSON from PHP.</li>
+                        <li>You understand the basic login flow with sessions.</li>
+                        <li>You know the core security protections every PHP app needs.</li>
+                        <li>You can now move into frameworks with much better fundamentals.</li>
                     </ul>
                 </aside>
             </div>

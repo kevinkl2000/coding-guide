@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP OOP | Code Atlas</title>
+    <title>Object-Oriented PHP | Code Atlas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -26,13 +26,14 @@
         <div class="row g-4">
             <div class="col-lg-8">
                 <section class="page-intro reveal">
-                    <p class="eyebrow">Lesson 4</p>
+                    <p class="eyebrow">Lesson 7</p>
                     <h1>Object-Oriented PHP</h1>
-                    <p class="lead-copy">Object-oriented PHP helps you model real application concepts using classes, properties, and methods. It becomes especially useful when projects grow.</p>
+                    <p class="lead-copy">At this point you have enough procedural knowledge to appreciate why classes matter. OOP is not about making code look advanced; it is about organizing responsibility as your app grows.</p>
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Basic Class Example</h2>
+                    <h2>Class Anatomy</h2>
+                    <p>A class groups related data and behavior. Use properties for state and methods for actions.</p>
                     <div class="code-example mt-3">
                         <div class="code-card">
                             <pre><code>&lt;?php
@@ -65,18 +66,18 @@ echo $user-&gt;getDisplayName();
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Core OOP Terms</h2>
+                    <h2>Why Encapsulation Matters</h2>
+                    <p>Keeping properties private prevents random parts of the application from mutating object state in uncontrolled ways. Public methods become the safe interface to that object.</p>
                     <ul>
-                        <li><strong>Class:</strong> the blueprint for an object.</li>
-                        <li><strong>Object:</strong> one created instance of a class.</li>
-                        <li><strong>Property:</strong> data stored inside an object.</li>
-                        <li><strong>Method:</strong> behavior defined on a class.</li>
-                        <li><strong>Visibility:</strong> public, protected, or private access level.</li>
+                        <li><strong>private:</strong> only the class itself can access it.</li>
+                        <li><strong>protected:</strong> the class and its children can access it.</li>
+                        <li><strong>public:</strong> any code can access it.</li>
                     </ul>
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Inheritance Example</h2>
+                    <h2>Inheritance vs Composition</h2>
+                    <p>Inheritance can be useful, but many apps are clearer when objects collaborate instead of extending long class chains.</p>
                     <div class="code-card mt-3">
                         <pre><code>&lt;?php
 class AdminUser extends User
@@ -88,11 +89,27 @@ class AdminUser extends User
 }
 ?&gt;</code></pre>
                     </div>
-                    <p class="mt-3 mb-0">Inheritance is helpful when a child class extends base behavior, but avoid deep class chains when composition would be simpler.</p>
+                    <p class="mt-3 mb-0">Use inheritance when the child is truly a specialized version of the parent. Use composition when an object merely needs another object to do a job.</p>
+                </section>
+
+                <section class="content-card reveal">
+                    <h2>Dependency Injection</h2>
+                    <p>Passing dependencies into constructors makes classes easier to understand and easier to replace in larger apps.</p>
+                    <div class="code-card mt-3">
+                        <pre><code>&lt;?php
+class UserRepository
+{
+    public function __construct(private PDO $pdo)
+    {
+    }
+}
+?&gt;</code></pre>
+                    </div>
                 </section>
 
                 <section class="content-card reveal">
                     <h2>Repository Example</h2>
+                    <p>A repository centralizes data access logic for one type of record. This keeps controllers or pages from becoming full of SQL.</p>
                     <div class="code-card mt-3">
                         <pre><code>&lt;?php
 class UserRepository
@@ -118,10 +135,10 @@ class UserRepository
                 <aside class="sidebar-card reveal">
                     <h3>When OOP Helps</h3>
                     <ul class="quick-facts">
-                        <li>When you need reusable domain logic.</li>
-                        <li>When classes can encapsulate database or API access.</li>
-                        <li>When constructor injection makes dependencies explicit.</li>
-                        <li>When you want cleaner separation between data and presentation.</li>
+                        <li>When one concept needs both data and behavior.</li>
+                        <li>When database logic should live outside page files.</li>
+                        <li>When dependencies should be explicit and injectable.</li>
+                        <li>When your project is large enough that organization matters more than raw speed of writing.</li>
                     </ul>
                 </aside>
             </div>

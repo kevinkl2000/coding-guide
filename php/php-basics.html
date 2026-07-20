@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP Basics | Code Atlas</title>
+    <title>Getting Started With PHP | Code Atlas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
         <div class="inline-nav">
             <a class="btn-outline-guide" href="../index.html">Home</a>
             <a class="btn-outline-guide" href="index.html">PHP Topics</a>
-            <a class="btn-sunrise" href="php-forms.html">Next Lesson</a>
+            <a class="btn-sunrise" href="php-syntax.html">Next Lesson</a>
         </div>
     </nav>
 
@@ -27,13 +27,31 @@
             <div class="col-lg-8">
                 <section class="page-intro reveal">
                     <p class="eyebrow">Lesson 1</p>
-                    <h1>PHP Basics</h1>
-                    <p class="lead-copy">PHP is a server-side language that can generate HTML, process form data, talk to databases, and return JSON. Files normally end with .php and are executed by the server before the browser sees the response.</p>
+                    <h1>Getting Started With PHP</h1>
+                    <p class="lead-copy">Begin here if you are new to server-side programming. This lesson explains what PHP is, how it runs, how PHP files differ from normal HTML files, and what a first useful script looks like.</p>
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>How PHP Works</h2>
-                    <p>When a user requests a PHP page, the web server passes the file to the PHP interpreter. PHP runs the code on the server and sends the result back to the browser.</p>
+                    <h2>What PHP Actually Does</h2>
+                    <p>PHP runs on the server, not in the browser. A browser asks for a page, the server executes the PHP file, and the browser only receives the final response. That response might be HTML, JSON, a redirect, or even a file download.</p>
+                    <p class="mb-0">This matters because PHP is excellent at tasks the browser should not do alone: validating input, reading databases, managing sessions, and protecting sensitive logic.</p>
+                </section>
+
+                <section class="content-card reveal">
+                    <h2>The Request Lifecycle</h2>
+                    <ol>
+                        <li>A browser requests a URL such as <strong>/profile.php</strong>.</li>
+                        <li>The web server sees that the file should be handled by PHP.</li>
+                        <li>PHP executes the code from top to bottom for that single request.</li>
+                        <li>The output is returned to the browser.</li>
+                        <li>On the next request, the process starts again.</li>
+                    </ol>
+                    <p class="mb-0">That last point is important: PHP does not keep local variables alive between requests unless you store data in sessions, cookies, files, or databases.</p>
+                </section>
+
+                <section class="content-card reveal">
+                    <h2>Your First Script</h2>
+                    <p>The basic PHP opening tag is <strong>&lt;?php</strong>. Use <strong>echo</strong> to send output back to the browser.</p>
                     <div class="code-example mt-3">
                         <div class="code-card">
                             <pre><code>&lt;?php
@@ -48,162 +66,82 @@ echo "&lt;h1&gt;Welcome to $language&lt;/h1&gt;";
                             </div>
                         </div>
                     </div>
-                    <p class="mt-3 mb-0">The browser does not see the PHP code. It only sees the generated HTML.</p>
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Variables and Data Types</h2>
-                    <p>PHP variables start with a dollar sign. Common types include strings, integers, floats, booleans, arrays, and null.</p>
+                    <h2>Mixing PHP With HTML</h2>
+                    <p>Many beginner PHP pages are mostly HTML with small PHP sections inside them. That is normal and often the easiest place to start.</p>
                     <div class="code-example mt-3">
                         <div class="code-card">
                             <pre><code>&lt;?php
-$name = "Amina";
-$age = 21;
-$height = 5.7;
-$isStudent = true;
-$skills = ["PHP", "HTML", "SQL"];
+$pageTitle = "Student Dashboard";
+?&gt;
 
-var_dump($name, $age, $height, $isStudent, $skills);
-?&gt;</code></pre>
-                        </div>
-                        <div class="output-card">
-                            <h4>Output</h4>
-                            <pre>string(5) "Amina"
-int(21)
-float(5.7)
-bool(true)
-array(3) {
-  [0]=&gt; "PHP"
-  [1]=&gt; "HTML"
-  [2]=&gt; "SQL"
-}</pre>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="content-card reveal">
-                    <h2>Strings and Output</h2>
-                    <p>Use <strong>echo</strong> to print output. Double quotes allow variable interpolation, while single quotes treat text more literally.</p>
-                    <div class="code-example mt-3">
-                        <div class="code-card">
-                            <pre><code>&lt;?php
-$user = "Kevin";
-echo "Hello, $user";
-echo '&lt;br&gt;Welcome to the guide';
-?&gt;</code></pre>
+&lt;h2&gt;&lt;?= $pageTitle ?&gt;&lt;/h2&gt;
+&lt;p&gt;Welcome to your first dynamic page.&lt;/p&gt;</code></pre>
                         </div>
                         <div class="output-card">
                             <h4>Output</h4>
                             <div class="output-render">
-                                <p class="mb-1">Hello, Kevin</p>
-                                <p class="mb-0">Welcome to the guide</p>
+                                <h2 class="mb-1">Student Dashboard</h2>
+                                <p class="mb-0">Welcome to your first dynamic page.</p>
                             </div>
                         </div>
                     </div>
-                    <ul class="mt-3 mb-0">
-                        <li>Use a dot to concatenate strings.</li>
-                        <li>Use <strong>htmlspecialchars()</strong> when printing user-provided values into HTML.</li>
-                    </ul>
+                    <p class="mt-3 mb-0">The short echo tag <strong>&lt;?=</strong> is a convenient way to print a value inside HTML.</p>
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Conditionals and Loops</h2>
-                    <p>PHP supports if statements, switch, while, for, and foreach. Use foreach for arrays because it is clean and readable.</p>
-                    <div class="code-example mt-3">
-                        <div class="code-card">
-                            <pre><code>&lt;?php
-$topics = ["Syntax", "Forms", "Sessions", "MySQL"];
+                    <h2>Comments and Readability</h2>
+                    <p>Good PHP is readable PHP. Use comments for intent, not for obvious statements. Name files and variables so someone else can understand your code without reverse-engineering it.</p>
+                    <div class="code-card mt-3">
+                        <pre><code>&lt;?php
+// Store the display name for the signed-in user.
+$displayName = "Amina Hassan";
 
-foreach ($topics as $topic) {
-    echo "&lt;li&gt;" . htmlspecialchars($topic) . "&lt;/li&gt;";
-}
+# This single-line comment also works.
 
-$score = 82;
-if ($score &gt;= 80) {
-    echo "Pass";
-} else {
-    echo "Review again";
-}
+/*
+   Multi-line comments are useful for explaining
+   longer decisions or temporary notes.
+*/
 ?&gt;</code></pre>
-                        </div>
-                        <div class="output-card">
-                            <h4>Output</h4>
-                            <div class="output-render">
-                                <ul class="output-list">
-                                    <li>Syntax</li>
-                                    <li>Forms</li>
-                                    <li>Sessions</li>
-                                    <li>MySQL</li>
-                                </ul>
-                                <p class="mb-0">Pass</p>
-                            </div>
-                        </div>
                     </div>
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Functions</h2>
-                    <p>Functions help you reuse logic and keep files organized. Add type hints when possible for clearer code.</p>
-                    <div class="code-example mt-3">
-                        <div class="code-card">
-                            <pre><code>&lt;?php
-function formatPrice(float $amount): string
-{
-    return "$" . number_format($amount, 2);
-}
-
-echo formatPrice(49.99);
-?&gt;</code></pre>
-                        </div>
-                        <div class="output-card">
-                            <h4>Output</h4>
-                            <pre>$49.99</pre>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="content-card reveal">
-                    <h2>Arrays</h2>
-                    <p>Indexed arrays store ordered lists. Associative arrays store key-value pairs and are very common in web apps.</p>
+                    <h2>Debugging Early</h2>
+                    <p>New developers often guess what a variable contains. That slows you down. Print values instead and look at them directly.</p>
                     <div class="code-example mt-3">
                         <div class="code-card">
                             <pre><code>&lt;?php
 $user = [
     "name" =&gt; "Amina",
-    "role" =&gt; "admin",
-    "active" =&gt; true,
+    "role" =&gt; "editor",
 ];
 
-echo $user["name"];
+var_dump($user);
 ?&gt;</code></pre>
                         </div>
                         <div class="output-card">
                             <h4>Output</h4>
-                            <pre>Amina</pre>
+                            <pre>array(2) {
+  ["name"]=&gt; "Amina"
+  ["role"]=&gt; "editor"
+}</pre>
                         </div>
-                    </div>
-                </section>
-
-                <section class="content-card reveal">
-                    <h2>Including Other Files</h2>
-                    <p>Split shared layout pieces into separate files using include or require. Use require when the file is essential.</p>
-                    <div class="code-card mt-3">
-                        <pre><code>&lt;?php
-require "partials/header.php";
-include "partials/sidebar.php";
-?&gt;</code></pre>
                     </div>
                 </section>
             </div>
 
             <div class="col-lg-4">
                 <aside class="sidebar-card reveal">
-                    <h3>Key Takeaways</h3>
+                    <h3>By The End Of Lesson 1</h3>
                     <ul class="quick-facts">
-                        <li>PHP runs on the server and returns HTML or JSON.</li>
-                        <li>Variables start with <strong>$</strong> and arrays are central to everyday PHP work.</li>
-                        <li>Use functions and include files to keep code maintainable.</li>
-                        <li>Escape output with <strong>htmlspecialchars()</strong> when rendering user data.</li>
+                        <li>You should understand that PHP executes on the server.</li>
+                        <li>You should be comfortable reading a small PHP file with HTML inside it.</li>
+                        <li>You should know how to print values and inspect them with <strong>var_dump()</strong>.</li>
+                        <li>You are now ready to learn PHP syntax in detail.</li>
                     </ul>
                 </aside>
             </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP Forms | Code Atlas</title>
+    <title>PHP Forms and Validation | Code Atlas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -16,9 +16,9 @@
     <nav class="guide-nav container d-flex flex-wrap justify-content-between align-items-center gap-3">
         <a class="brand-mark" href="index.html">PHP Guide</a>
         <div class="inline-nav">
-            <a class="btn-outline-guide" href="php-basics.html">Previous</a>
+            <a class="btn-outline-guide" href="php-control-flow.html">Previous</a>
             <a class="btn-outline-guide" href="index.html">PHP Topics</a>
-            <a class="btn-sunrise" href="php-database.html">Next Lesson</a>
+            <a class="btn-sunrise" href="php-state.html">Next Lesson</a>
         </div>
     </nav>
 
@@ -26,13 +26,14 @@
         <div class="row g-4">
             <div class="col-lg-8">
                 <section class="page-intro reveal">
-                    <p class="eyebrow">Lesson 2</p>
+                    <p class="eyebrow">Lesson 4</p>
                     <h1>Forms and User Input</h1>
-                    <p class="lead-copy">Forms are one of the most common PHP use cases. PHP reads submitted values through superglobals such as <strong>$_GET</strong> and <strong>$_POST</strong>.</p>
+                    <p class="lead-copy">Forms are where beginner PHP starts becoming real web development. You accept input, validate it, keep the user experience clear, and only trust clean data.</p>
                 </section>
 
                 <section class="content-card reveal">
                     <h2>GET vs POST</h2>
+                    <p>Use GET when the request should be bookmarkable or visible in the URL, such as searching or filtering. Use POST when you are submitting data that changes the system or should stay out of the address bar.</p>
                     <table class="table-guide">
                         <thead>
                             <tr>
@@ -44,12 +45,12 @@
                         <tbody>
                             <tr>
                                 <td>GET</td>
-                                <td>Search, filters, sharable URLs</td>
-                                <td>Values appear in the URL.</td>
+                                <td>Search, sorting, filtering</td>
+                                <td>Values appear in the URL and can be shared.</td>
                             </tr>
                             <tr>
                                 <td>POST</td>
-                                <td>Logins, registrations, updates</td>
+                                <td>Registration, login, create and update actions</td>
                                 <td>Values are sent in the request body.</td>
                             </tr>
                         </tbody>
@@ -57,7 +58,8 @@
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Reading POST Data</h2>
+                    <h2>Basic Form Handling Pattern</h2>
+                    <p>A reliable beginner pattern is: detect the request, read values safely, validate them, then either show errors or continue processing.</p>
                     <div class="code-example mt-3">
                         <div class="code-card">
                             <pre><code>&lt;?php
@@ -86,8 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Validation Pattern</h2>
-                    <p>Validation should happen on the server even if JavaScript also checks fields in the browser.</p>
+                    <h2>Collecting Validation Errors</h2>
+                    <p>Real forms often need to report more than one problem. Instead of failing on the first issue, collect errors in an array and show them together.</p>
                     <div class="code-example mt-3">
                         <div class="code-card">
                             <pre><code>&lt;?php
@@ -111,11 +113,12 @@ if (empty($errors)) {
                             <pre>Form is valid.</pre>
                         </div>
                     </div>
+                    <p class="mt-3 mb-0">This pattern scales much better once you have five or ten fields on a form.</p>
                 </section>
 
                 <section class="content-card reveal">
-                    <h2>Sticky Form Example</h2>
-                    <p>A sticky form keeps the user's typed values after validation fails.</p>
+                    <h2>Sticky Forms</h2>
+                    <p>If validation fails, keep the values the user already typed. This improves usability and reduces frustration.</p>
                     <div class="code-example mt-3">
                         <div class="code-card">
                             <pre><code>&lt;form method="post" action=""&gt;
@@ -136,8 +139,18 @@ if (empty($errors)) {
                 </section>
 
                 <section class="content-card reveal">
+                    <h2>Escaping Output</h2>
+                    <p>Validation checks the structure of data. Escaping protects the page when data is rendered. These are different jobs, and you need both.</p>
+                    <div class="code-card mt-3">
+                        <pre><code>&lt;?php
+echo htmlspecialchars($name, ENT_QUOTES, "UTF-8");
+?&gt;</code></pre>
+                    </div>
+                </section>
+
+                <section class="content-card reveal">
                     <h2>File Upload Basics</h2>
-                    <p>Use <strong>enctype="multipart/form-data"</strong> and inspect <strong>$_FILES</strong>. Always validate file type and size.</p>
+                    <p>Uploads require special form encoding and careful validation. Check the upload error, inspect the file type, and only then move the file into a controlled folder.</p>
                     <div class="code-card mt-3">
                         <pre><code>&lt;?php
 if (isset($_FILES["resume"]) && $_FILES["resume"]["error"] === UPLOAD_ERR_OK) {
@@ -148,21 +161,16 @@ if (isset($_FILES["resume"]) && $_FILES["resume"]["error"] === UPLOAD_ERR_OK) {
 ?&gt;</code></pre>
                     </div>
                 </section>
-
-                <section class="callout-box reveal mt-4">
-                    <h3>Best Practice</h3>
-                    <p class="mb-0">Never trust raw user input. Validate structure, sanitize output, and use prepared statements before data reaches a database query.</p>
-                </section>
             </div>
 
             <div class="col-lg-4">
                 <aside class="sidebar-card reveal">
-                    <h3>Form Checklist</h3>
+                    <h3>What Good Form Code Does</h3>
                     <ul class="quick-facts">
-                        <li>Check the request method before reading form values.</li>
-                        <li>Use null coalescing like <strong>$_POST["field"] ?? ""</strong>.</li>
-                        <li>Escape data when showing it back in HTML.</li>
-                        <li>Validate on the server even if JavaScript exists.</li>
+                        <li>Checks the request method before processing.</li>
+                        <li>Uses fallback values like <strong>$_POST["field"] ?? ""</strong>.</li>
+                        <li>Validates data on the server.</li>
+                        <li>Escapes user data when rendering it into HTML.</li>
                     </ul>
                 </aside>
             </div>
