@@ -325,6 +325,64 @@ h4,
     color: var(--slate);
 }
 
+.snippet-stack {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.snippet-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.snippet-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(33, 78, 68, 0.09);
+    color: var(--forest);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.copy-snippet {
+    border: 1px solid rgba(33, 78, 68, 0.18);
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--forest);
+    border-radius: 999px;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.copy-snippet:hover,
+.copy-snippet:focus {
+    border-color: var(--forest);
+    color: var(--forest);
+    background: #fff;
+}
+
+.snippet-note {
+    color: var(--slate);
+    margin-bottom: 0;
+}
+
+.snippet-code pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.snippet-card .code-card {
+    padding: 1.25rem;
+}
+
 .code-card pre {
     margin: 0;
     white-space: pre-wrap;
