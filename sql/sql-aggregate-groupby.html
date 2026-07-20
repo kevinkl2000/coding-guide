@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SQL Lesson 4 | Aggregates and GROUP BY</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"><link rel="stylesheet" href="../assets/css/styles.css"></head>
+<body><div class="site-bg"></div><nav class="guide-nav container d-flex flex-wrap justify-content-between align-items-center gap-3"><a class="brand-mark" href="index.html">SQL Guide</a><div class="inline-nav"><a class="btn-outline-guide" href="sql-sorting-limits.html">Previous</a><a class="btn-outline-guide" href="index.html">SQL Topics</a><a class="btn-sunrise" href="sql-joins.html">Next Lesson</a></div></nav>
+<main class="guide-shell container"><section class="page-intro reveal"><p class="eyebrow">Lesson 4</p><h1>Aggregates and GROUP BY</h1><p class="lead-copy">Aggregate functions summarize data and GROUP BY organizes that summary by category.</p></section>
+<section class="content-card reveal"><h2>Aggregate Functions</h2><div class="code-card mt-3"><pre><code>SELECT COUNT(*) AS total_users FROM users;
+SELECT AVG(total) AS average_order FROM orders;
+SELECT SUM(total) AS revenue FROM orders;</code></pre></div></section>
+<section class="content-card reveal"><h2>GROUP BY and HAVING</h2><div class="code-card mt-3"><pre><code>SELECT country, COUNT(*) AS users
+FROM users
+GROUP BY country
+HAVING COUNT(*) &gt; 10;</code></pre></div></section></main>
+<script src="../assets/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script></body></html>

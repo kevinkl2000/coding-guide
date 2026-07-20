@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SQL Lesson 7 | Schema and Constraints</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"><link rel="stylesheet" href="../assets/css/styles.css"></head>
+<body><div class="site-bg"></div><nav class="guide-nav container d-flex flex-wrap justify-content-between align-items-center gap-3"><a class="brand-mark" href="index.html">SQL Guide</a><div class="inline-nav"><a class="btn-outline-guide" href="sql-insert-update-delete.html">Previous</a><a class="btn-outline-guide" href="index.html">SQL Topics</a><a class="btn-sunrise" href="sql-subqueries-cte.html">Next Lesson</a></div></nav>
+<main class="guide-shell container"><section class="page-intro reveal"><p class="eyebrow">Lesson 7</p><h1>Schema and Constraints</h1><p class="lead-copy">Schema design defines how reliable your data will be over time.</p></section>
+<section class="content-card reveal"><h2>Create a Table</h2><div class="code-card mt-3"><pre><code>CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</code></pre></div></section>
+<section class="content-card reveal"><h2>Common Constraints</h2><ul><li>PRIMARY KEY for unique row identity</li><li>NOT NULL for required values</li><li>UNIQUE for non-duplicate values</li><li>FOREIGN KEY for relationships</li></ul></section></main>
+<script src="../assets/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script></body></html>

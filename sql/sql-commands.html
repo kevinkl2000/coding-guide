@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common SQL Commands | Code Atlas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+<div class="site-bg"></div>
+<nav class="guide-nav container d-flex flex-wrap justify-content-between align-items-center gap-3">
+    <a class="brand-mark" href="index.html">SQL Guide</a>
+    <div class="inline-nav">
+        <a class="btn-outline-guide" href="index.html">SQL Topics</a>
+        <a class="btn-sunrise" href="sql-basics.html">Lesson 1</a>
+    </div>
+</nav>
+
+<main class="guide-shell container">
+    <section class="page-intro reveal">
+        <p class="eyebrow">Copy-Paste Library</p>
+        <h1>Common SQL Commands</h1>
+        <p class="lead-copy">Reusable commands for day-to-day SQL querying and schema work. Click copy on any snippet.</p>
+    </section>
+
+    <section class="snippet-stack">
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">SELECT</span><h2 class="mt-2 mb-1">Read all rows</h2></div><button class="copy-snippet" type="button" data-copy-target="#sql-cmd-1">Copy</button></div><div class="code-card mt-3"><pre id="sql-cmd-1"><code>SELECT *
+FROM table_name;</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">WHERE</span><h2 class="mt-2 mb-1">Filter rows</h2></div><button class="copy-snippet" type="button" data-copy-target="#sql-cmd-2">Copy</button></div><div class="code-card mt-3"><pre id="sql-cmd-2"><code>SELECT id, name
+FROM table_name
+WHERE status = 'active';</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">ORDER</span><h2 class="mt-2 mb-1">Sort and limit</h2></div><button class="copy-snippet" type="button" data-copy-target="#sql-cmd-3">Copy</button></div><div class="code-card mt-3"><pre id="sql-cmd-3"><code>SELECT *
+FROM table_name
+ORDER BY created_at DESC
+LIMIT 20;</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">GROUP</span><h2 class="mt-2 mb-1">Group and count</h2></div><button class="copy-snippet" type="button" data-copy-target="#sql-cmd-4">Copy</button></div><div class="code-card mt-3"><pre id="sql-cmd-4"><code>SELECT category, COUNT(*) AS total
+FROM table_name
+GROUP BY category;</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">JOIN</span><h2 class="mt-2 mb-1">Join two tables</h2></div><button class="copy-snippet" type="button" data-copy-target="#sql-cmd-5">Copy</button></div><div class="code-card mt-3"><pre id="sql-cmd-5"><code>SELECT a.id, a.name, b.value
+FROM table_a a
+INNER JOIN table_b b ON b.a_id = a.id;</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">INSERT</span><h2 class="mt-2 mb-1">Insert one row</h2></div><button class="copy-snippet" type="button" data-copy-target="#sql-cmd-6">Copy</button></div><div class="code-card mt-3"><pre id="sql-cmd-6"><code>INSERT INTO table_name (col1, col2)
+VALUES ('value1', 'value2');</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">UPDATE</span><h2 class="mt-2 mb-1">Update rows</h2></div><button class="copy-snippet" type="button" data-copy-target="#sql-cmd-7">Copy</button></div><div class="code-card mt-3"><pre id="sql-cmd-7"><code>UPDATE table_name
+SET col1 = 'new_value'
+WHERE id = 1;</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">DELETE</span><h2 class="mt-2 mb-1">Delete rows</h2></div><button class="copy-snippet" type="button" data-copy-target="#sql-cmd-8">Copy</button></div><div class="code-card mt-3"><pre id="sql-cmd-8"><code>DELETE FROM table_name
+WHERE id = 1;</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">CREATE</span><h2 class="mt-2 mb-1">Create table</h2></div><button class="copy-snippet" type="button" data-copy-target="#sql-cmd-9">Copy</button></div><div class="code-card mt-3"><pre id="sql-cmd-9"><code>CREATE TABLE table_name (
+    id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">INDEX</span><h2 class="mt-2 mb-1">Create index</h2></div><button class="copy-snippet" type="button" data-copy-target="#sql-cmd-10">Copy</button></div><div class="code-card mt-3"><pre id="sql-cmd-10"><code>CREATE INDEX idx_table_name_col
+ON table_name (col1);</code></pre></div></article>
+    </section>
+</main>
+
+<script src="../assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

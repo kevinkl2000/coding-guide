@@ -17,6 +17,7 @@
         <a class="brand-mark" href="index.html">PHP Guide</a>
         <div class="inline-nav">
             <a class="btn-outline-guide" href="index.html">PHP Topics</a>
+            <a class="btn-outline-guide" href="php-db-snippets.html">DB Snippets</a>
             <a class="btn-outline-guide" href="php-mvc-snippets.html">MVC Snippets</a>
             <a class="btn-sunrise" href="php-basics.html">Start Learning</a>
         </div>
@@ -25,8 +26,8 @@
     <main class="guide-shell container">
         <section class="page-intro reveal">
             <p class="eyebrow">Copy-Paste Library</p>
-            <h1>Common PHP Snippets</h1>
-            <p class="lead-copy">Use these small building blocks when you need a quick example for variables, loops, strings, arrays, and everyday utility code. Each block is short enough to copy into a project and adapt.</p>
+            <h1>Generic PHP Snippets</h1>
+            <p class="lead-copy">A neutral set of small PHP building blocks for common situations like variables, operators, empty loops, arrays, and reusable helper patterns.</p>
         </section>
 
         <section class="snippet-stack">
@@ -34,18 +35,45 @@
                 <div class="snippet-toolbar">
                     <div>
                         <span class="snippet-tag">Variables</span>
-                        <h2 class="mt-2 mb-1">Basic variable and output pattern</h2>
+                        <h2 class="mt-2 mb-1">Basic variable output</h2>
                     </div>
                     <button class="copy-snippet" type="button" data-copy-target="#snippet-variable-code">Copy</button>
                 </div>
-                <p class="snippet-note">Use this when you want a clear starting point for a page title or display name.</p>
+                <p class="snippet-note">Use this as a plain starting point for any page.</p>
                 <div class="code-card mt-3">
                     <pre id="snippet-variable-code"><code>&lt;?php
-$pageTitle = "Dashboard";
-$userName = "Amina";
+$name = "Example";
+$count = 1;
 
-echo "&lt;h1&gt;" . htmlspecialchars($pageTitle) . "&lt;/h1&gt;";
-echo "&lt;p&gt;Welcome, " . htmlspecialchars($userName) . "&lt;/p&gt;";
+echo $name;
+echo $count;
+?&gt;</code></pre>
+                </div>
+            </article>
+
+            <article class="content-card reveal snippet-card">
+                <div class="snippet-toolbar">
+                    <div>
+                        <span class="snippet-tag">Operators</span>
+                        <h2 class="mt-2 mb-1">Common operators</h2>
+                    </div>
+                    <button class="copy-snippet" type="button" data-copy-target="#snippet-operators-code">Copy</button>
+                </div>
+                <p class="snippet-note">Arithmetic, concatenation, comparison, and ternary checks are the most used operators.</p>
+                <div class="code-card mt-3">
+                    <pre id="snippet-operators-code"><code>&lt;?php
+$a = 10;
+$b = 3;
+
+$sum = $a + $b;
+$difference = $a - $b;
+$product = $a * $b;
+$isEqual = $a === $b ? "No" : "Yes";
+
+echo $sum;
+echo $difference;
+echo $product;
+echo $isEqual;
 ?&gt;</code></pre>
                 </div>
             </article>
@@ -54,19 +82,19 @@ echo "&lt;p&gt;Welcome, " . htmlspecialchars($userName) . "&lt;/p&gt;";
                 <div class="snippet-toolbar">
                     <div>
                         <span class="snippet-tag">Conditionals</span>
-                        <h2 class="mt-2 mb-1">Simple role check</h2>
+                        <h2 class="mt-2 mb-1">Simple if / else</h2>
                     </div>
-                    <button class="copy-snippet" type="button" data-copy-target="#snippet-role-code">Copy</button>
+                    <button class="copy-snippet" type="button" data-copy-target="#snippet-if-code">Copy</button>
                 </div>
-                <p class="snippet-note">Use this for admin vs user display logic or feature flags.</p>
+                <p class="snippet-note">A neutral branch pattern for almost any feature.</p>
                 <div class="code-card mt-3">
-                    <pre id="snippet-role-code"><code>&lt;?php
-$role = $_SESSION["role"] ?? "guest";
+                    <pre id="snippet-if-code"><code>&lt;?php
+$isReady = true;
 
-if ($role === "admin") {
-    echo "&lt;strong&gt;Admin panel&lt;/strong&gt;";
+if ($isReady) {
+    echo "Ready";
 } else {
-    echo "User area";
+    echo "Not ready";
 }
 ?&gt;</code></pre>
                 </div>
@@ -76,20 +104,18 @@ if ($role === "admin") {
                 <div class="snippet-toolbar">
                     <div>
                         <span class="snippet-tag">Loops</span>
-                        <h2 class="mt-2 mb-1">Render a list with foreach</h2>
+                        <h2 class="mt-2 mb-1">Empty foreach loop</h2>
                     </div>
                     <button class="copy-snippet" type="button" data-copy-target="#snippet-loop-code">Copy</button>
                 </div>
-                <p class="snippet-note">This is the most common pattern for arrays and database result sets.</p>
+                <p class="snippet-note">Use this as a blank loop you can fill in later.</p>
                 <div class="code-card mt-3">
                     <pre id="snippet-loop-code"><code>&lt;?php
-$links = ["Home", "About", "Contact"];
+$items = [];
 
-echo "&lt;ul&gt;";
-foreach ($links as $link) {
-    echo "&lt;li&gt;" . htmlspecialchars($link) . "&lt;/li&gt;";
+foreach ($items as $item) {
+    // Add logic here
 }
-echo "&lt;/ul&gt;";
 ?&gt;</code></pre>
                 </div>
             </article>
@@ -98,20 +124,20 @@ echo "&lt;/ul&gt;";
                 <div class="snippet-toolbar">
                     <div>
                         <span class="snippet-tag">Arrays</span>
-                        <h2 class="mt-2 mb-1">Associative array access</h2>
+                        <h2 class="mt-2 mb-1">Common array pattern</h2>
                     </div>
                     <button class="copy-snippet" type="button" data-copy-target="#snippet-array-code">Copy</button>
                 </div>
-                <p class="snippet-note">Useful for form data, configuration, and API payloads.</p>
+                <p class="snippet-note">Useful for settings, form data, and response payloads.</p>
                 <div class="code-card mt-3">
                     <pre id="snippet-array-code"><code>&lt;?php
-$user = [
-    "name" =&gt; "Amina",
-    "email" =&gt; "amina@example.com",
-    "active" =&gt; true,
+$data = [
+    "title" =&gt; "Example",
+    "status" =&gt; "draft",
+    "count" =&gt; 0,
 ];
 
-echo $user["name"] . " - " . $user["email"];
+echo $data["title"];
 ?&gt;</code></pre>
                 </div>
             </article>
@@ -120,19 +146,19 @@ echo $user["name"] . " - " . $user["email"];
                 <div class="snippet-toolbar">
                     <div>
                         <span class="snippet-tag">Functions</span>
-                        <h2 class="mt-2 mb-1">Reusable formatting helper</h2>
+                        <h2 class="mt-2 mb-1">Generic helper function</h2>
                     </div>
                     <button class="copy-snippet" type="button" data-copy-target="#snippet-function-code">Copy</button>
                 </div>
-                <p class="snippet-note">Keep helpers small and specific so they can be reused across pages.</p>
+                <p class="snippet-note">A simple reusable helper you can adapt for many small tasks.</p>
                 <div class="code-card mt-3">
                     <pre id="snippet-function-code"><code>&lt;?php
-function formatCurrency(float $amount): string
+function helper(string $value): string
 {
-    return "$" . number_format($amount, 2);
+    return trim($value);
 }
 
-echo formatCurrency(49.99);
+echo helper("  text  ");
 ?&gt;</code></pre>
                 </div>
             </article>
@@ -141,15 +167,15 @@ echo formatCurrency(49.99);
                 <div class="snippet-toolbar">
                     <div>
                         <span class="snippet-tag">Includes</span>
-                        <h2 class="mt-2 mb-1">Shared layout pieces</h2>
+                        <h2 class="mt-2 mb-1">Shared file loading</h2>
                     </div>
                     <button class="copy-snippet" type="button" data-copy-target="#snippet-include-code">Copy</button>
                 </div>
-                <p class="snippet-note">Use include for optional pieces and require for files your page cannot work without.</p>
+                <p class="snippet-note">Use these when splitting a page into reusable pieces.</p>
                 <div class="code-card mt-3">
                     <pre id="snippet-include-code"><code>&lt;?php
-require __DIR__ . "/partials/header.php";
-include __DIR__ . "/partials/flash-message.php";
+require __DIR__ . "/file.php";
+include __DIR__ . "/another-file.php";
 ?&gt;</code></pre>
                 </div>
             </article>
@@ -157,20 +183,20 @@ include __DIR__ . "/partials/flash-message.php";
             <article class="content-card reveal snippet-card">
                 <div class="snippet-toolbar">
                     <div>
-                        <span class="snippet-tag">Sanitizing</span>
-                        <h2 class="mt-2 mb-1">Safe HTML output</h2>
+                        <span class="snippet-tag">Output</span>
+                        <h2 class="mt-2 mb-1">Safe HTML escaping</h2>
                     </div>
                     <button class="copy-snippet" type="button" data-copy-target="#snippet-safe-code">Copy</button>
                 </div>
-                <p class="snippet-note">Escape values before rendering anything that came from a user or database.</p>
+                <p class="snippet-note">A generic escape helper for anything that may come from a user.</p>
                 <div class="code-card mt-3">
                     <pre id="snippet-safe-code"><code>&lt;?php
-function safeOutput(string $value): string
+function escape(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES, "UTF-8");
 }
 
-echo safeOutput($comment);
+echo escape($value);
 ?&gt;</code></pre>
                 </div>
             </article>
