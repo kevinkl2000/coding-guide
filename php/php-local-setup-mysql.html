@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP and MySQL Local Setup | Code Atlas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <div class="site-bg"></div>
+
+    <nav class="guide-nav container d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <a class="brand-mark" href="index.html">PHP Guide</a>
+        <div class="inline-nav">
+            <a class="btn-outline-guide" href="index.html">PHP Topics</a>
+            <a class="btn-sunrise" href="php-database.html">Database Lesson</a>
+        </div>
+    </nav>
+
+    <main class="guide-shell container">
+        <section class="page-intro reveal">
+            <p class="eyebrow">Setup Walkthrough</p>
+            <h1>PHP + MySQL Local Development Setup</h1>
+            <p class="lead-copy">This step-by-step page turns your checklist into a full local workflow: project creation, PHP server, MySQL setup, connection file, and database read test.</p>
+        </section>
+
+        <section class="summary-panel reveal mb-4">
+            <h3>Before You Start</h3>
+            <ul>
+                <li>These install commands are for Ubuntu or Debian-based Linux.</li>
+                <li>Run commands from the VS Code terminal unless noted otherwise.</li>
+                <li>If a command asks for sudo, enter your OS password.</li>
+            </ul>
+        </section>
+
+        <section class="content-card reveal">
+            <h2>Step 1: Open your project</h2>
+            <p>Create a folder, enter it, and open it in VS Code.</p>
+            <div class="code-card mt-3"><pre><code>mkdir php-project
+cd php-project
+code .</code></pre></div>
+            <p class="mt-3 mb-0">Create a file named <strong>index.php</strong> in this folder.</p>
+        </section>
+
+        <section class="content-card reveal">
+            <h2>Step 2: Check PHP is installed</h2>
+            <p>This prints your current PHP version.</p>
+            <div class="code-card mt-3"><pre><code>php -v</code></pre></div>
+            <p class="mt-3">Expected output looks like <code>PHP 8.x.x</code>.</p>
+            <p>If PHP is missing, install it:</p>
+            <div class="code-card mt-3"><pre><code>sudo apt update
+sudo apt install php</code></pre></div>
+        </section>
+
+        <section class="content-card reveal">
+            <h2>Step 3: Start the PHP server</h2>
+            <p>This starts a local development server in your current folder.</p>
+            <div class="code-card mt-3"><pre><code>php -S localhost:8000</code></pre></div>
+            <p class="mt-3 mb-0">Open <code>http://localhost:8000</code> in a browser. Stop the server with <code>Ctrl + C</code>.</p>
+        </section>
+
+        <section class="content-card reveal">
+            <h2>Step 4: Install MySQL</h2>
+            <p>Install the MySQL server package.</p>
+            <div class="code-card mt-3"><pre><code>sudo apt update
+sudo apt install mysql-server</code></pre></div>
+            <p class="mt-3">Check installation:</p>
+            <div class="code-card mt-3"><pre><code>mysql --version</code></pre></div>
+        </section>
+
+        <section class="content-card reveal">
+            <h2>Step 5: Start MySQL</h2>
+            <p>Check service status, start it if needed, and enable auto-start on boot.</p>
+            <div class="code-card mt-3"><pre><code>sudo systemctl status mysql
+sudo systemctl start mysql
+sudo systemctl enable mysql</code></pre></div>
+        </section>
+
+        <section class="content-card reveal">
+            <h2>Step 6: Log into MySQL</h2>
+            <p>Open the MySQL shell as an admin user.</p>
+            <div class="code-card mt-3"><pre><code>sudo mysql</code></pre></div>
+            <p class="mt-3 mb-0">You should now see a <code>mysql&gt;</code> prompt.</p>
+        </section>
+
+        <section class="content-card reveal">
+            <h2>Step 7: Create your database and table</h2>
+            <p>Run these SQL commands inside the MySQL prompt.</p>
+            <div class="code-card mt-3"><pre><code>CREATE DATABASE learningphp;
+SHOW DATABASES;
+USE learningphp;
+
+CREATE TABLE users(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(255)
+);
+
+INSERT INTO users(name, email)
+VALUES
+('Kevin', 'kevin@gmail.com'),
+('Bob', 'bob@gmail.com');
+
+SELECT * FROM users;
+EXIT;</code></pre></div>
+        </section>
+
+        <section class="content-card reveal">
+            <h2>Step 8: Install PHP MySQL extension</h2>
+            <p>PHP needs MySQL drivers before PDO can connect.</p>
+            <div class="code-card mt-3"><pre><code>sudo apt install php-mysql
+php -m</code></pre></div>
+            <p class="mt-3 mb-0">Verify <code>PDO</code>, <code>pdo_mysql</code>, and <code>mysqli</code> appear in the module list.</p>
+        </section>
+
+        <section class="content-card reveal">
+            <h2>Step 9: Create database.php connection file</h2>
+            <p>Create <strong>database.php</strong> in your project root:</p>
+            <div class="code-card mt-3"><pre><code>&lt;?php
+$host = '127.0.0.1';
+$db   = 'learningphp';
+$user = 'root';
+$pass = '';
+$charset = 'utf8mb4';
+
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+
+$options = [
+    PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES =&gt; false,
+];
+
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+} catch (PDOException $e) {
+    die('Connection failed: ' . $e-&gt;getMessage());
+}
+?&gt;</code></pre></div>
+        </section>
+
+        <section class="content-card reveal">
+            <h2>Step 10: Connect and read data in index.php</h2>
+            <p>Replace your <strong>index.php</strong> with:</p>
+            <div class="code-card mt-3"><pre><code>&lt;?php
+require_once 'database.php';
+
+$sql = "SELECT * FROM users";
+$result = $pdo-&gt;query($sql);
+$users = $result-&gt;fetchAll();
+
+echo '&lt;pre&gt;';
+print_r($users);
+echo '&lt;/pre&gt;';
+?&gt;</code></pre></div>
+            <p class="mt-3">Start the server again:</p>
+            <div class="code-card mt-3"><pre><code>php -S localhost:8000</code></pre></div>
+            <p class="mt-3 mb-0">Open <code>http://localhost:8000</code> and you should see user rows printed as an array.</p>
+        </section>
+
+        <section class="content-card reveal">
+            <h2>Commands Summary</h2>
+            <div class="code-card mt-3"><pre><code># Open project
+code .
+
+# Check PHP
+php -v
+
+# Start PHP
+php -S localhost:8000
+
+# Install MySQL
+sudo apt install mysql-server
+
+# Start MySQL
+sudo systemctl start mysql
+
+# Open MySQL
+sudo mysql
+
+# Install PHP's MySQL extension
+sudo apt install php-mysql
+
+# Check extensions
+php -m</code></pre></div>
+        </section>
+    </main>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

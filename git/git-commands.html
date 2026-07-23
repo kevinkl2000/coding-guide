@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Git Commands | Code Atlas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+<div class="site-bg"></div>
+<nav class="guide-nav container d-flex flex-wrap justify-content-between align-items-center gap-3">
+    <a class="brand-mark" href="index.html">Git Guide</a>
+    <div class="inline-nav">
+        <a class="btn-outline-guide" href="index.html">Git Topics</a>
+                <a class="btn-outline-guide" href="git-common-issues.html">Common Issues</a>
+        <a class="btn-sunrise" href="git-ticket-workflow.html">Workflow Lesson</a>
+    </div>
+</nav>
+
+<main class="guide-shell container">
+    <section class="page-intro reveal">
+        <p class="eyebrow">Copy-Paste Library</p>
+        <h1>Common Git Commands</h1>
+        <p class="lead-copy">From day-one commands to production branch workflow. Each block includes what it does, when to use it, and what to watch out for.</p>
+    </section>
+
+    <section class="summary-panel reveal mb-4">
+        <h3>How To Use This Page</h3>
+        <ul>
+            <li>Run commands in order when shown as a sequence.</li>
+            <li>Replace ticket names, versions, and branch names with your own values.</li>
+            <li>Use git status before and after major commands so you always know your state.</li>
+        </ul>
+    </section>
+
+    <section class="snippet-stack">
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">STATUS</span><h2 class="mt-2 mb-1">Check current state</h2></div><button class="copy-snippet" type="button" data-copy-target="#git-cmd-1">Copy</button></div><p class="mt-3 mb-0">Use this before editing or merging. It shows changed files, recent history, and which branches exist locally.</p><div class="code-card mt-3"><pre id="git-cmd-1"><code>git status
+git log --oneline -10
+git branch</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">COMMIT</span><h2 class="mt-2 mb-1">Stage and commit</h2></div><button class="copy-snippet" type="button" data-copy-target="#git-cmd-2">Copy</button></div><p class="mt-3 mb-0">git add . stages all changed files in the current folder tree. git commit records a snapshot with a message that explains intent.</p><div class="code-card mt-3"><pre id="git-cmd-2"><code>git add .
+git commit -m "feat: add profile settings page"</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">UNDO</span><h2 class="mt-2 mb-1">Unstage files</h2></div><button class="copy-snippet" type="button" data-copy-target="#git-cmd-3">Copy</button></div><p class="mt-3 mb-0">git restore --staged removes files from staging but keeps edits. git restore path/to/file resets working changes for one file to the last commit.</p><div class="code-card mt-3"><pre id="git-cmd-3"><code>git restore --staged .
+git restore path/to/file</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">BRANCH</span><h2 class="mt-2 mb-1">Create ticket branch</h2></div><button class="copy-snippet" type="button" data-copy-target="#git-cmd-4">Copy</button></div><p class="mt-3 mb-0">Always branch from an updated main if your team policy says ticket branches start from main. This keeps each ticket isolated and reviewable.</p><div class="code-card mt-3"><pre id="git-cmd-4"><code>git switch main
+git pull origin main
+git switch -c ticket/789-user-avatar-upload</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">SYNC</span><h2 class="mt-2 mb-1">Update from remote</h2></div><button class="copy-snippet" type="button" data-copy-target="#git-cmd-5">Copy</button></div><p class="mt-3 mb-0">git fetch downloads remote updates without changing your files. git pull fetches plus merges the chosen branch into your current branch.</p><div class="code-card mt-3"><pre id="git-cmd-5"><code>git fetch origin
+git switch dev
+git pull origin dev</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">MERGE</span><h2 class="mt-2 mb-1">Merge ticket into dev locally</h2></div><button class="copy-snippet" type="button" data-copy-target="#git-cmd-6">Copy</button></div><p class="mt-3 mb-0">--no-ff forces a merge commit so integration points stay visible in history. This is useful for auditing what entered dev and when.</p><div class="code-card mt-3"><pre id="git-cmd-6"><code>git switch dev
+git pull origin dev
+git merge --no-ff ticket/789-user-avatar-upload
+git push origin dev</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">FLOW</span><h2 class="mt-2 mb-1">Production team workflow</h2></div><button class="copy-snippet" type="button" data-copy-target="#git-cmd-7">Copy</button></div><p class="mt-3 mb-0">This sequence models your requested production flow: ticket branches are created from main, integrated into dev, then released from dev to main after QA.</p><div class="code-card mt-3"><pre id="git-cmd-7"><code># 1) prep branches
+git switch main
+git pull origin main
+git switch dev
+git pull origin dev
+
+# 2) create ticket from main
+git switch main
+git switch -c ticket/123-short-description
+
+# 3) develop and push
+git add .
+git commit -m "feat: implement ticket 123"
+git push -u origin ticket/123-short-description
+
+# 4) PR ticket -> dev
+# 5) after QA, PR dev -> main</code></pre></div></article>
+        <article class="content-card reveal snippet-card"><div class="snippet-toolbar"><div><span class="snippet-tag">RELEASE</span><h2 class="mt-2 mb-1">Tag release from main</h2></div><button class="copy-snippet" type="button" data-copy-target="#git-cmd-8">Copy</button></div><p class="mt-3 mb-0">Annotated tags mark release points in history. They let you redeploy or compare exactly what changed between versions.</p><div class="code-card mt-3"><pre id="git-cmd-8"><code>git switch main
+git pull origin main
+git tag -a v2.0.0 -m "Release 2.0.0"
+git push origin v2.0.0</code></pre></div></article>
+    </section>
+</main>
+
+<script src="../assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

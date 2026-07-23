@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Lesson 4 | Branching Fundamentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+<div class="site-bg"></div>
+<nav class="guide-nav container d-flex flex-wrap justify-content-between align-items-center gap-3">
+    <a class="brand-mark" href="index.html">Git Guide</a>
+    <div class="inline-nav"><a class="btn-outline-guide" href="git-commit-history.html">Previous</a><a class="btn-outline-guide" href="index.html">Git Topics</a><a class="btn-sunrise" href="git-merge-rebase.html">Next Lesson</a></div>
+</nav>
+<main class="guide-shell container">
+    <section class="page-intro reveal"><p class="eyebrow">Lesson 4</p><h1>Branching Fundamentals</h1><p class="lead-copy">Branches let you isolate work safely and avoid breaking stable code.</p></section>
+    <section class="content-card reveal"><h2>Common Branch Commands</h2><div class="code-card mt-3"><pre><code>git branch
+git switch -c ticket/123-login-bug
+git switch dev
+git branch -d ticket/123-login-bug</code></pre></div></section>
+    <section class="content-card reveal"><h2>Naming Tips</h2><ul><li>Use prefixes: feature, bugfix, hotfix, ticket.</li><li>Include ticket number when available.</li><li>Keep names short but descriptive.</li></ul></section>
+</main>
+<script src="../assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
